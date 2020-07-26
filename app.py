@@ -115,4 +115,4 @@ def console():
         return render_template('console.html')
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
