@@ -1,12 +1,11 @@
 body {
-  overflow: hidden;
   padding: 0%;
   border: none;
   margin: 0;
 }
 .wrapper {
   position: relative;
-  background-image: linear-gradient(#000000, #1f1d1d);
+  background-color: #202124;
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -14,12 +13,7 @@ body {
   border: 0;
 }
 .head {
-  background-image: linear-gradient(
-    141deg,
-    #9fb8ad 0%,
-    #1fc8db 51%,
-    #2cb5e8 75%
-  );
+  background-color: #8d3d9c;
   text-align: center;
   margin: auto;
   color: #f3f3f3;
@@ -28,6 +22,7 @@ body {
 }
 h1 {
   text-decoration: underline;
+  font-family: "calibri"; 
   font-size: 5em;
   font-weight: 550;
   padding: 0;
@@ -37,9 +32,16 @@ h1 {
 .info {
   padding: 1em;
   color: white;
+  text-align: center;
 }
 
 @media screen and (max-width: 900px) {
+  .info {
+    font-size: small;
+    padding: 1em;
+    color: white;
+    text-align: left;
+  }
   h1 {
     text-decoration: underline;
     font-size: 2.5em;
@@ -56,24 +58,25 @@ h4 {
 .inputform {
   background-image: linear-gradient(
     141deg,
-    #9fb8ad 0%,
-    #1fc8db 51%,
-    #2cb5e8 75%
+    #3c403c 0%,
+    #5b615b 51%,
+    #3c403c 75%
   );
   margin: auto;
   color: #f3f3f3;
   padding: 2em;
   width: max-content;
   border-radius: 10px;
+  
 }
 @media screen and (max-width: 900px) {
   .inputform {
     background-image: linear-gradient(
-      141deg,
-      #9fb8ad 0%,
-      #1fc8db 51%,
-      #2cb5e8 75%
-    );
+    141deg,
+    #3c403c 0%,
+    #5b615b 51%,
+    #3c403c 75%
+  );
     margin: auto;
     color: #f3f3f3;
     padding: 0.5em;
@@ -92,4 +95,11 @@ h4 {
 }
 h3 {
   text-align: center;
+}
+.blackbackground{
+  background-image: linear-gradient(
+    45deg,
+    #222222
+    #3b3636
+    );
 }
