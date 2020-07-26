@@ -34,11 +34,34 @@ h1 {
   color: white;
   text-align: center;
 }
+.studentdetails {
+  color: white;
+  text-align: left;
+}
+.outputtable{
+  border-collapse: collapse;
+  width: 100%;
+}
+table, td, th {
+  border: 1px solid white;
+}
+th {
+  height: 30px;
+}
+td {
+  text-align: center;
+  padding: 5px;
+}
 
 @media screen and (max-width: 900px) {
   .info {
     font-size: small;
     padding: 1em;
+    color: white;
+    text-align: left;
+  }
+  .studentdetails {
+    font-size: small;
     color: white;
     text-align: left;
   }

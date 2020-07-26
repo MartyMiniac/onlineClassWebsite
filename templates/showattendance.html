@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="wrapper">
+    <span id="homepage">
+        <div class="head" id="topscroll" hidden>
+            <h1>
+                Attendistat
+            </h1>
+            <h4>
+                Check your Online Classes Attendance Online
+            </h4>
+        </div>
+    </span>
+    <div id="details">
+        <p class="info">
+            Check your Attendance of Online Classes in an Easy way.
+            <br>
+            Your Attendance stats in just a few clicks away. 
+        </p>
+    </div>
+    <div class="inputform" id="form">
+        {% if js['student found']==False %}
+                <p style="color: red;">Looks Like You Didn't Attend any of the Classes or You Entered the Wrong Details</p>
+        {% endif %}
+        <p class="studentdetails">
+            Name: {{ js['name'].title() }}
+            <br>
+            Class: {{ js['class'] }}
+            <br>
+            Section: {{ js['section'] }}
+        </p>
+        {% if js['student found'] %}
+            <table class="studentdetails" id="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Attendance</th>
+                </tr>
+                {% for x,y in js['attendance'].items() %}
+                <tr>
+                    <td>{{ x }}</td>
+                    <td>{{ y }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</div>
+<script>
+document.getElementById("topscroll").style.display="none";
+document.getElementById("details").style.display="none";
+document.getElementById("form").style.display="none";
+try{
+    document.getElementById("table").style.display="none";
+}
+catch{
+
+}
+$('#topscroll').fadeIn(500);
+$('#details').delay(250).fadeIn(400);
+$('#form').delay(500).fadeIn(400);
+try{
+    $('#table').delay(1000).fadeIn(1000);
+}
+catch{
+    
+}
+$('#homepage').on('click', function() {
+    window.location.href = "/";
+});
+
+</script>
+{% endblock %}
