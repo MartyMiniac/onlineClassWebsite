@@ -8,7 +8,7 @@ app=Flask(__name__)
 def index():
     if request.method=='POST':
         try:
-            name=request.form['name']
+            name=" ".join(request.form['name'].split())
             cl=int(request.form['class'])
             sec=request.form['sections']
             js=getInfo(name=name, cl=cl, sec=sec)
