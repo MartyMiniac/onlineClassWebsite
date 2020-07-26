@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="wrapper">
+    <div class="head">
+        <h1>
+            CTF-2020
+        </h1>
+        <h4>
+            That Same Farewell Just Brought Online
+        </h4>
+    </div>
+    <div>
+        <p class="info">
+            So for this you will have to trust us! As Codex Club we belive in the uttermost security of your data!
+            <br>
+            Just to verify that you are... Well.. You! We are asking you your Login credentials of your Student Login in the college servers.
+            <br>
+            We guarantee you there will be no phishing or storing of data envolved. All we care about is who you are and so just your name is what we receive.
+        </p>
+    </div>
+    <div class="inputform">
+        <form action="/login" method="POST">
+            {% if show_hidden %}
+                <p style="color: red;">Login Failed Please Try Again !!</p>
+            {% endif %}
+            <input type="text" required autofocus size="40" placeholder="Registration Number" name="regno" class="regno">
+            <br>
+            <input type="password" required autofocus size="40" placeholder="Password" name="pass" class="pass" id="pass">
+            <br>
+            <input type="button" onclick="myFunction()" value="Show or Hide Password">
+            <br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+<script>
+    var k=true;
+    function myFunction()
+    {
+        if(k)
+        {
+            document.getElementById("pass").type="text"; 
+            k=false;
+        }
+        else
+        {
+            document.getElementById("pass").type="password"; 
+            k=true;
+        }
+    }
+</script>
+{% endblock %}
