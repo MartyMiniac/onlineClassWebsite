@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="wrapper">
+    <span id="homepage">
+        <div class="head" id="topscroll" hidden>
+            <h1>
+                Attendistat
+            </h1>
+            <h4>
+                Check your Online Classes Attendance Online
+            </h4>
+        </div>
+    </span>
+    <div class="inputform" id="form">
+        <form action="/masterconsole" method="POST" enctype = "multipart/form-data" id="studentform">
+            <h4 style='font-family: "calibri";'>Select the File to be Uploaded</h4>
+            <input type = "file" name = "file" />
+            <br>
+            <br>
+            <button class="glow-on-hover" type="button" id="submitbutton">Upload</button>
+        </form>
+    </div>
+</div>
+<script>
+document.getElementById("topscroll").style.display="none";
+document.getElementById("form").style.display="none";
+$('#topscroll').fadeIn(500);
+$('#form').delay(500).fadeIn(400);
+$('#submitbutton').on('click', function() {
+  $('#studentform').submit();
+});
+$('#homepage').on('click', function() {
+    window.location.href = "/";
+});
+
+</script>
+<style>
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+</style>
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import *
 import json
+import requests
 
 app=Flask(__name__)
 
@@ -19,15 +20,42 @@ def index():
         return render_template('index.html', show_hidden=False)
 
 def getInfo(name, cl, sec):
-    if cl==12:
-        f=open('static/json/class12.json', 'r')
-        js=json.load(f)
-        f.close()
-    
-    elif cl==10:
-        f=open('static/json/class10.json', 'r')
-        js=json.load(f)
-        f.close()
+    try:
+        if cl==12:
+            f=open('static/json/class12.json', 'r')
+            js=json.load(f)
+            f.close()
+        
+        elif cl==10:
+            f=open('static/json/class10.json', 'r')
+            js=json.load(f)
+            f.close()
+    except:
+        print('file not found creating files')
+        url = "https://sfsonline-f942.restdb.io/rest/filejson"
+
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+        response = requests.request("GET", url, headers=headers)
+        js=json.loads(response.text)
+        for s in js:
+            print(s['class'])
+            f=open('static/json/'+s['class'], 'w')
+            f.write(json.dumps(s['json'], indent=4))
+            f.close()
+
+        if cl==12:
+            f=open('static/json/class12.json', 'r')
+            js=json.load(f)
+            f.close()
+        
+        elif cl==10:
+            f=open('static/json/class10.json', 'r')
+            js=json.load(f)
+            f.close()
 
     outp={}
     outp['student found']=False
@@ -48,5 +76,43 @@ def getInfo(name, cl, sec):
             break
 
     return outp
+
+@app.route('/masterconsole', methods=['POST', 'GET'])
+def console():
+    if request.method=='POST':
+        f = request.files['file']
+        f.save('static/json/'+f.filename)
+
+        url = "https://sfsonline-f942.restdb.io/rest/filejson"
+
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+        response = requests.request("GET", url, headers=headers)
+        js=json.loads(response.text)
+
+        obid=""
+        for s in js:
+            if s['class']==f.filename:
+                obid=s['_id']
+
+        url = "https://sfsonline-f942.restdb.io/rest/filejson/"+obid
+        g=open('static/json/'+f.filename, 'r')
+        payload = "{\"json\": "+g.read()+"}"
+        g.close()
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+
+        response = requests.request("PUT", url, data=payload, headers=headers)
+
+        return str(response.text)
+    else:
+        return render_template('console.html')
+
 if __name__=='__main__':
     app.run(debug=True)
