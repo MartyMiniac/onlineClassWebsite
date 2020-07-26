@@ -63,7 +63,7 @@ def getInfo(name, cl, sec):
     outp['class']=cl
     outp['section']=sec
     for s in js['data']:
-        if s['name']==name.lower() and s['class']==cl and s['section']==sec:
+        if s['name'].lower()==name.lower() and s['class']==cl and s['section']==sec:
             arr={}
             for i in js['classes done on']:
                 if i in s['days present']:
