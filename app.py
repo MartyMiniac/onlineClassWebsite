@@ -1,6 +1,7 @@
 from flask import *
 import json
 import requests
+from bs4 import BeautifulSoup
 
 app=Flask(__name__)
 
@@ -114,5 +115,51 @@ def console():
     else:
         return render_template('console.html')
 
+@app.route('/videouploads', methods=['POST'])
+def videoupload():
+    if request.method == 'POST':
+        js=request.json
+        url = "https://sfsonline-f942.restdb.io/rest/fileuploads"
+
+        payload = json.dumps( js )
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+        return response.text
+
+@app.route('/getlessons', methods=['GET'])
+def lessons():
+    try:
+        f=open('static/json/lessons.json','r')
+        js=json.load(f)
+        f.close()
+    except:
+        url = "https://sfsonline-f942.restdb.io/rest/fileuploads"
+
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+
+        response = requests.request("GET", url, headers=headers)
+
+        js=json.loads(response.text)
+        f=open('static/json/lessons.json','w')
+        f.write(json.dumps(js, indent=4))
+        f.close()
+
+        for s in js:            
+            ss=requests.get(s['url']).text
+            soup = BeautifulSoup(ss, 'html.parser')
+            arr=soup.findAll('a',href=True)
+            s['url']=arr[1]['href']
+    
+    return render_template('lessons.html', js=js)
+
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)

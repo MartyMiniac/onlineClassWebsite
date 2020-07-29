@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    #overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.8);
+        z-index: 2;
+    }
+    .classlink:hover{
+        color: #d773e9;        
+        cursor: pointer;
+    }
+    .exitbutton {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 100px;
+        height: auto;        
+        cursor: pointer;
+        z-index: 3;
+    }
+    @media screen and (max-width: 900px) {
+        .exitbutton{        
+            width: 50px;
+        }
+    }
+    #titleaudio{
+        background-color: black;
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        color: white;
+    }
+    .audiocontrol{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .audiocontroldiv{
+        position: relative;
+        top: 50%;
+    }
+</style>
+<div class="wrapper">
+    <span id="homepage">
+        <div class="head" id="topscroll" hidden>
+            <h1>
+                Attendistat
+            </h1>
+            <h4>
+                Check your Online Classes Attendance Online
+            </h4>
+        </div>
+    </span>
+    <div id="details">
+        <p class="info">
+            Lesson Recap
+            <br>
+            Revise your Lessons with real Lectures
+            <br>
+            Click on the Date the lesson of which you want Revise
+        </p>
+    </div>
+    <div class="inputform" id="form">
+        <table>
+            <tr>
+                <th>Date on Which Class was Taken</th>
+            </tr>
+            {% for s in js %}
+            <tr>
+                <td>
+                    <p onclick="on(['{{ s['title'] }}','{{ s['url'] }}'])" class="classlink">{{ s['title'] }}</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div id="overlay">
+    <img src="{{ url_for('static', filename='assets/exit.png') }}" onclick="off()" class="exitbutton">
+    <h1 id="titleaudio"></h1>
+    <div class="audiocontroldiv" id="audioplayerjs"></div>    
+</div>
+<script>
+document.getElementById("topscroll").style.display="none";
+document.getElementById("details").style.display="none";
+document.getElementById("form").style.display="none";
+$('#topscroll').fadeIn(500);
+$('#details').delay(250).fadeIn(400);
+$('#form').delay(500).fadeIn(400);
+
+$('#homepage').on('click', function() {
+    window.location.href = "/";
+});
+var js;
+var i=0;
+
+function on(e) {
+    $('#overlay').fadeIn();
+    console.log(e);
+    document.getElementById("titleaudio").innerHTML=e[0].toUpperCase();
+    document.getElementById("audioplayerjs").innerHTML='<audio autoplay controls class="audiocontrol" autofocus id="lessonaudio"><source src="'+e[1]+'" type="audio/mpeg" id="audioplayersource">Your browser does not support the audio element.</audio>';
+}
+
+function off() {
+    $('#overlay').fadeOut();
+    var player = document.getElementById('lessonaudio');
+    player.pause();
+}
+
+
+</script>
+{% endblock %}
