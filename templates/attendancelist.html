@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body{
+        background-color: #202124;
+    }
+</style>
+    <span id="homepage">
+        <div class="head" id="topscroll" hidden>
+            <h1>
+                Attendistat
+            </h1>
+            <h4>
+                Check your Online Classes Attendance Online
+            </h4>
+        </div>
+    </span>
+    <div class="ribbon" id="topribbon">
+        <ul>
+            <li><a href="/">Attendance</a>
+            </li>
+            <li><a href="/getlessons">Audio Lessons</a>
+            </li>
+        </ul>
+    </div>
+    <div id="details">
+        <p class="info">
+            If you are not a Teacher then bro...
+            <br>
+            I Don't How did you came across this but You were not supposed to come here
+            <br>
+            Just backoff Rightnow before I come to know that you tried to login
+            <br>
+            And I track back you using your IP 
+        </p>
+    </div>
+    <div class="inputform" id="form">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Section</th>
+                <th>Days Present</th>
+                <th>Dates Present</th>
+            </tr>
+            {% for s in arr %}
+                <tr>
+                    <td>{{ s['name'].title() }}</td>
+                    <td>{{ s['class'] }}</td>
+                    <td>{{ s['section'] }}</td>
+                    <td>{{ s['number of days present'] }}</td>
+                    <td>
+                        {% for t in s['days present'] %}
+                        {{ t[:2] }}-{{ t[2:4] }}-{{ t[4:] }}
+                        <br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+<script>
+document.getElementById("topscroll").style.display="none";
+document.getElementById("details").style.display="none";
+document.getElementById("topribbon").style.display="none";
+$('#topscroll').fadeIn(500);
+$('#topribbon').fadeIn(600);
+$('#details').delay(250).fadeIn(400);
+$('#form').delay(500).fadeIn(400);
+$('#submitbutton').on('click', function() {
+  $('#studentform').submit();
+});
+$('#homepage').on('click', function() {
+    window.location.href = "/";
+});
+
+</script>
+{% endblock %}

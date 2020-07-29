@@ -15,7 +15,7 @@ def index():
             js=getInfo(name=name, cl=cl, sec=sec)
         except:
             return render_template('index.html', show_hidden=True)
-
+        print(js)
         return render_template('showattendance.html', js=js)
     else:
         return render_template('index.html', show_hidden=False)
@@ -83,6 +83,10 @@ def console():
     if request.method=='POST':
         f = request.files['file']
         f.save('static/json/'+f.filename)
+        g=open('static/json/'+f.filename, 'w')
+        g.write('')
+        g.close()
+
 
         url = "https://sfsonline-f942.restdb.io/rest/filejson"
 
@@ -154,6 +158,69 @@ def lessons():
         f.close()
     
     return render_template('lessons.html', js=js)
+
+@app.route('/teacherlogin', methods=['POST','GET'])
+def teacherlogin():
+    if request.method=='POST':
+        password=request.form['password']
+        if password=='thisismypassword':
+            try:
+                f=open('static/json/class12.json', 'r')
+                js12=json.load(f)
+                f.close()
+            
+                f=open('static/json/class10.json', 'r')
+                js10=json.load(f)
+                f.close()
+            except:
+                print('file not found creating files')
+                url = "https://sfsonline-f942.restdb.io/rest/filejson"
+
+                headers = {
+                    'content-type': "application/json",
+                    'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+                    'cache-control': "no-cache"
+                    }
+                response = requests.request("GET", url, headers=headers)
+                js=json.loads(response.text)
+                for s in js:
+                    print(s['class'])
+                    f=open('static/json/'+s['class'], 'w')
+                    f.write(json.dumps(s['json'], indent=4))
+                    f.close()
+
+                f=open('static/json/class12.json', 'r')
+                js12=json.load(f)
+                f.close()
+                
+                f=open('static/json/class10.json', 'r')
+                js10=json.load(f)
+                f.close()
+            
+            arr=[]
+            for s in js10['data']:
+                t={}
+                t['name']=s['name']
+                t['class']=s['class']
+                t['section']=s['section']
+                t['days present']=s['days present']
+                t['number of days present']=s['number of days present']
+                arr.append(t)
+            
+            for s in js12['data']:
+                t={}
+                t['name']=s['name']
+                t['class']=s['class']
+                t['section']=s['section']
+                t['days present']=s['days present']
+                t['number of days present']=s['number of days present']
+                arr.append(t)
+            
+            return render_template('attendancelist.html', arr=arr)
+        else:
+            return render_template('teacherlogin.html', show_hidden=True)
+    else:
+        return render_template('teacherlogin.html', show_hidden=False)
 
 if __name__=='__main__':
     app.run(debug=True)

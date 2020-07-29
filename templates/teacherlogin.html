@@ -11,23 +11,49 @@
             </h4>
         </div>
     </span>
+    <div class="ribbon" id="topribbon">
+        <ul>
+            <li><a href="/">Attendance</a>
+            </li>
+            <li><a href="/getlessons">Audio Lessons</a>
+            </li>
+        </ul>
+    </div>
+    <div id="details">
+        <p class="info">
+            If you are not a Teacher then bro...
+            <br>
+            I Don't How did you came across this but You were not supposed to come here
+            <br>
+            Just backoff Rightnow before I come to know that you tried to login
+            <br>
+            And I track back you using your IP 
+        </p>
+    </div>
     <div class="inputform" id="form">
-        <form action="/masterconsole" method="POST" enctype = "multipart/form-data" id="studentform">
-            <h4 style='font-family: "calibri";'>Select the File to be Uploaded</h4>
-            <input type = "file" name = "file" />
+        <form action="/teacherlogin" method="POST" id="studentform">
+        <h4 style='font-family: "calibri";'>Fill In The Login Password</h4>
+            {% if show_hidden %}
+                <p style="color: red;">Wrong Password😜 Backoff Rightnow</p>
+            {% endif %}
+            <input type="text" required autofocus size="40" placeholder="Enter the Password" name="password" class="regno">
             <br>
             <br>
-            <button class="glow-on-hover" type="button" id="submitbutton">Upload</button>
+            <button class="glow-on-hover" type="button" id="submitbutton">Submit</button>
         </form>
     </div>
-</div>
-<div class="footer">
-<p class="info" style="margin: 0px; padding: 0px;">Webserver, Database, Webpage and Javascript Developed by Rohan Verma</p>
+    <div class="footer">
+    <p class="info" style="margin: 0px; padding: 0px;">Webserver, Database, Webpage and Javascript Developed by Rohan Verma</p>
+    </div>
 </div>
 <script>
 document.getElementById("topscroll").style.display="none";
+document.getElementById("details").style.display="none";
+document.getElementById("topribbon").style.display="none";
 document.getElementById("form").style.display="none";
 $('#topscroll').fadeIn(500);
+$('#topribbon').fadeIn(600);
+$('#details').delay(250).fadeIn(400);
 $('#form').delay(500).fadeIn(400);
 $('#submitbutton').on('click', function() {
   $('#studentform').submit();
