@@ -83,9 +83,6 @@ def console():
     if request.method=='POST':
         f = request.files['file']
         f.save('static/json/'+f.filename)
-        g=open('static/json/'+f.filename, 'w')
-        g.write('')
-        g.close()
 
 
         url = "https://sfsonline-f942.restdb.io/rest/filejson"
