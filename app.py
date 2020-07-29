@@ -220,4 +220,4 @@ def teacherlogin():
         return render_template('teacherlogin.html', show_hidden=False)
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
