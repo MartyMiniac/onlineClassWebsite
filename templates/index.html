@@ -11,6 +11,14 @@
             </h4>
         </div>
     </span>
+    <div class="ribbon" id="topribbon">
+        <ul>
+            <li><a href="/">Attendance</a>
+            </li>
+            <li><a href="/getlessons">Audio Lessons</a>
+            </li>
+        </ul>
+    </div>
     <div id="details">
         <p class="info">
             Check your Attendance of Online Classes in an Easy way.
@@ -44,10 +52,12 @@
 <script>
 document.getElementById("topscroll").style.display="none";
 document.getElementById("details").style.display="none";
+document.getElementById("topribbon").style.display="none";
 document.getElementById("class").style.display="none";
 document.getElementById("sections").style.display="none";
 document.getElementById("form").style.display="none";
 $('#topscroll').fadeIn(500);
+$('#topribbon').fadeIn(600);
 $('#details').delay(250).fadeIn(400);
 $('#form').delay(500).fadeIn(400);
 function checkclass(e) {

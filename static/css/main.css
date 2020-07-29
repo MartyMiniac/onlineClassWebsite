@@ -126,3 +126,31 @@ h3 {
     #3b3636
     );
 }
+.ribbon{
+  position: relative;
+  width: 100%;
+  background-image: linear-gradient(
+    141deg,
+    #3c403c 0%,
+    #5b615b 51%,
+    #3c403c 75%
+  );
+  margin: 0;
+  padding: 0;
+}
+.ribbon a{
+  color: white;
+  transition: 0.5s;
+}
+.ribbon a:hover{
+  color: #d773e9;
+}
+.ribbon li{  
+  display: inline-block;
+  list-style-type: none;
+  padding-left: 5%;
+}
+#homepage{
+  margin: 0;
+  padding: 0;
+}
