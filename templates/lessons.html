@@ -77,7 +77,7 @@
             {% for s in js %}
             <tr>
                 <td>
-                    <p onclick="on(['{{ s['title'] }}','{{ s['url'] }}'])" class="classlink">{{ s['title'] }}</p>
+                    <p onclick="on(['{{ s['title'] }}','{{ s['url'][:-1] }}'])" class="classlink">{{ s['title'] }}</p>
                 </td>
             </tr>
             {% endfor %}

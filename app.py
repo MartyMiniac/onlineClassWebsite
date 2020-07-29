@@ -152,12 +152,6 @@ def lessons():
         f=open('static/json/lessons.json','w')
         f.write(json.dumps(js, indent=4))
         f.close()
-
-        for s in js:            
-            ss=requests.get(s['url']).text
-            soup = BeautifulSoup(ss, 'html.parser')
-            arr=soup.findAll('a',href=True)
-            s['url']=arr[1]['href']
     
     return render_template('lessons.html', js=js)
 
