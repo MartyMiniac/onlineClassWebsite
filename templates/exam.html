@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<div class="wrapper">
+    <span id="homepage">
+        <div class="head" id="topscroll" hidden>
+            <h1>
+                Attendistat
+            </h1>
+            <h4>
+                Check your Online Classes Attendance Online
+            </h4>
+        </div>
+    </span>
+    <div class="ribbon" id="topribbon">
+        <ul>
+            <li><a href="/">Attendance</a>
+            </li>
+            <li><a href="/getlessons">Audio Lessons</a>
+            </li>
+        </ul>
+    </div>
+    <div id="details">
+        <p class="info">
+            <strong>Instructions</strong>
+            <br>
+            1> Don't Leave The Tab
+            <br>
+            2> Don't Minimise
+            <br>
+            Not Abiding the rules will lead to the cancelation of the test.
+        </p>
+    </div>
+    <div class="inputform" id="form">
+        <p>
+            Stop Blocking Javascript To Load the Test
+        </p>
+    </div>
+    <div class="footer">
+    <p class="info" style="margin: 0px; padding: 0px;">Webserver, Database, Webpage and Javascript Developed by Rohan Verma</p>
+    </div>
+</div>
+<script>
+document.getElementById("topscroll").style.display="none";
+document.getElementById("details").style.display="none";
+document.getElementById("topribbon").style.display="none";
+document.getElementById("form").style.display="none";
+$('#topscroll').fadeIn(500);
+$('#topribbon').fadeIn(600);
+$('#details').delay(250).fadeIn(400);
+$('#form').delay(500).fadeIn(400);
+$('#homepage').on('click', function() {
+    window.location.href = "/";
+});
+
+</script>
+<script src="{{ url_for('static', filename='js/exam.js') }}"></script>
+<script src="{{ url_for('static', filename='js/examengine.js') }}"></script>
+{% endblock %}

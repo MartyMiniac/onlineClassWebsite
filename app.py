@@ -219,5 +219,31 @@ def teacherlogin():
     else:
         return render_template('teacherlogin.html', show_hidden=False)
 
+@app.route('/test', methods=['POST','GET'])
+def exam():
+    return render_template('exam.html')
+
+@app.route('/testengine', methods=['GET'])
+def testengine():
+    return open('static/htmls/testengine.html','r').read()
+
+@app.route('/getquestions', methods=['POST'])
+def getquestion():
+    try:
+        f=open('static/json/examquestions.json','r')
+        js=json.load(f)
+        f.close()
+    except:
+        #Logic to get questions from database
+        print('failed to load questions')
+        f=open('static/json/examquestions.json','r')
+        js=json.load(f)
+        f.close()
+    qno=request.get_json(force=True).get('qno',"")
+    if qno=='all':
+        return jsonify(js['data'])
+    ques=js['data'][int(qno)]
+    return jsonify(ques)
+
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)
