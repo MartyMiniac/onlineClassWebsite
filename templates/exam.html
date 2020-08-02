@@ -32,6 +32,12 @@
             <br>
             Not Abiding the rules will lead to the cancelation of the test.
         </p>
+        <div style="padding: 5px; position: relative; width: 100%;">
+            <p class="info" style="padding: 0;">You are {{ name.title() }} of class {{ cl }}{{sec}}</p>
+            <p hidden  id="infoname">Name   : {{ name }}</p>
+            <p hidden id="infoclass">Class  : {{ cl }}</p>
+            <p hidden id="infosec">Section : {{ sec }}</p>
+        </div>
     </div>
     <div class="inputform" id="form">
         <p>

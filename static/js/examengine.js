@@ -1,11 +1,5 @@
 var currentquestion=0;
 var totalquestions=0;
-var status={
-    name:"test",
-    class:12,
-    section:"A",
-    answers:[]
-}
 var questions;
 var answers=[];
 var totaltime;
@@ -37,7 +31,6 @@ $(document).ready(function(){
             }
             document.getElementById("questionselectarea").innerHTML=s;
             totalquestions=data.data.length;
-            status['answers']=answers;
             totaltime=data.timelimit;
             console.log(totaltime);
             console.log(questions);
@@ -99,4 +92,16 @@ function myTimer() {
 
 function finishsubmit() {
     alert('Timeup');
+    var submitval={
+        "name": document.getElementById("infoname").innerHTML,
+        "cl": document.getElementById("infoclass").innerHTML,
+        "sec": document.getElementById("infosec").innerHTML,
+        "ans":answers
+    };
+    console.log(submitval);
+    $.post( "/submitans", JSON.stringify(submitval))
+    .done(function( data ) {
+        document.write('');
+        window.location.href = data.url;
+    });
 }

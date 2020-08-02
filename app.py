@@ -257,7 +257,7 @@ def exam():
         
     #condition to test the code
     if code==js['testcode']:
-        return render_template('exam.html')
+        return render_template('exam.html', name=name, cl=cl, sec=sec)
     else:
         return render_template('wrongtestcode.html')
     
@@ -291,6 +291,22 @@ def examinit():
 @app.route('/caughtcheating', methods=['GET'])
 def caughtcheating():
     return render_template('cheating.html')
+
+@app.route('/submitans', methods=['POST'])
+def submitans():
+    js=request.get_json(force=True)
+    f=open('static/json/testsubmit.json', 'r')
+    jsl=json.load(f)
+    f.close()
+    jsl['data'].append(js)
+    f=open('static/json/testsubmit.json', 'w')
+    f.write(json.dumps(jsl,indent=4))
+    f.close()
+    print(json.dumps(js, indent=4))
+    rt={
+        'url':'/'
+    }
+    return jsonify(rt)
 
 def genrandom():
     i=0

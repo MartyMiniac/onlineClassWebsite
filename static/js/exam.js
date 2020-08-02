@@ -12,10 +12,13 @@ function stopEvent(event){
      event.stopPropagation();
 }
 //uncomment to detect tab change
-$(window).focus(function() {
-    window.location.href = "/caughtcheating";
-    console.log('you left change');
-});
+    $(window).focus(function() {
+        if(timeup==false)
+        {
+            window.location.href = "/caughtcheating";
+        }
+        console.log('you left change');
+    });
 $(document).ready(function(){
     $.get( "/testengine", function( data ) {
         $( "#form" ).html( data );
