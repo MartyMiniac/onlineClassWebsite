@@ -222,10 +222,15 @@ def teacherlogin():
 
 @app.route('/starttest', methods=['POST'])
 def exam():
-    code=" ".join(request.form['testcode'].split())
-    name=" ".join(request.form['name'].split())
-    cl=int(request.form['class'])
-    sec=request.form['sections']
+    try:
+        code=" ".join(request.form['testcode'].split())
+        name=" ".join(request.form['name'].split())
+        if name=="":            
+            return render_template('incompletetestinfo.html')
+        cl=int(request.form['class'])
+        sec=request.form['sections']
+    except:
+        return render_template('incompletetestinfo.html')
     try:
         f=open('static/json/examquestions.json', 'r')
         js=json.load(f)
@@ -275,7 +280,7 @@ def getquestion():
         f.close()
     qno=request.get_json(force=True).get('qno',"")
     if qno=='all':
-        return jsonify(js['data'])
+        return jsonify(js)
     ques=js['data'][int(qno)]
     return jsonify(ques)
 

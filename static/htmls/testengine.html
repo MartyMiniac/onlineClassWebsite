@@ -60,6 +60,7 @@
     }
     .questionlist{
         background-color: #00000063;
+        cursor: pointer;
     }
     .questionlist:hover{
         color: #d782ec;
@@ -67,19 +68,16 @@
 </style>
 <div class="testarea">
     <span onclick="previous()" class="navbutton previous">Previous</span>
+    <div class="questionnoviewer" id="timerviewer">Time Left Will Appear Here</div>
     <div class="questionnoviewer" id="questionnoviewer">Here Quesiton Index will Appear</div>
     <span onclick="next()" class="navbutton next">Next</span>
     <div class="questionviewer" id="questionviewer">
         <p id="questiontext">
-            This is a Sample Question.<br>
-            This is a Sample Question.<br>
-            This is a Sample Question.<br>
-            This is a Sample Question.<br>
-            This is a Sample Question.<br>
+            Click a Question To View it
         </p>
     </div>
     <select name="answeroption" onchange="updateanswer()" id="answeroption">
-        <option disabled selected>Select Your Answer</option>
+        <option disabled selected>Select a Question First</option>
     </select>
 </div>
 <h4>Below is a Scrolling window<br>
