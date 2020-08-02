@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='assets/icon.png') }}" type="image/icon type">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Attendistat</title>
+</head>
+<body>
+    <div class="wrapper">
+        <span id="homepage">
+            <div class="head" id="topscroll" hidden>
+                <h1>
+                    Attendistat
+                </h1>
+                <h4>
+                    Check your Online Classes Attendance Online
+                </h4>
+            </div>
+        </span>
+        <div class="ribbon" id="topribbon">
+            <ul>
+                <li><a href="/">Attendance</a>
+                </li>
+                <li><a href="/getlessons">Audio Lessons</a>
+                </li>
+            </ul>
+        </div>
+        <div id="details">
+            <p class="info">
+                <strong>Your Test Has Been Terminated</strong><br>
+                Did you change Tab or did you minimise the window ??<br>
+                Seems like you did and we think that you are not following out instructions<br>
+                We Don't Like People Not Listening to us so We cancelled your test<br>
+            </p>
+        </div>
+        <div class="footer">
+        <p class="info" style="margin: 0px; padding: 0px;">Webserver, Database, Webpage and Javascript Developed by Rohan Verma</p>
+        </div>
+    </div>
+    <script>
+    document.getElementById("topscroll").style.display="none";
+    document.getElementById("details").style.display="none";
+    document.getElementById("topribbon").style.display="none";
+    $('#topscroll').fadeIn(500);
+    $('#topribbon').fadeIn(600);
+    $('#details').delay(250).fadeIn(400);
+    $('#homepage').on('click', function() {
+        window.location.href = "/";
+    });
+    </script>    
+</body>
+</html>

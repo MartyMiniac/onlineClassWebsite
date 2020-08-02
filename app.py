@@ -2,6 +2,7 @@ from flask import *
 import json
 import requests
 from bs4 import BeautifulSoup
+from random import randint
 
 app=Flask(__name__)
 
@@ -219,9 +220,42 @@ def teacherlogin():
     else:
         return render_template('teacherlogin.html', show_hidden=False)
 
-@app.route('/test', methods=['POST','GET'])
+@app.route('/starttest', methods=['POST'])
 def exam():
-    return render_template('exam.html')
+    code=" ".join(request.form['testcode'].split())
+    name=" ".join(request.form['name'].split())
+    cl=int(request.form['class'])
+    sec=request.form['sections']
+    try:
+        f=open('static/json/examquestions.json', 'r')
+        js=json.load(f)
+        f.close()
+    except:
+        print('file not found creating files')
+        url = "https://sfsonline-f942.restdb.io/rest/assetjson"
+
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+        response = requests.request("GET", url, headers=headers)
+        js=json.loads(response.text)
+        for s in js:
+            print(s['filename'])
+            f=open('static/json/'+s['filename'], 'w')
+            f.write(json.dumps(s['json'], indent=4))
+            f.close()
+        f=open('static/json/examquestions.json', 'r')
+        js=json.load(f)
+        f.close()
+        
+    #condition to test the code
+    if code==js['testcode']:
+        return render_template('exam.html')
+    else:
+        return render_template('wrongtestcode.html')
+    
 
 @app.route('/testengine', methods=['GET'])
 def testengine():
@@ -244,6 +278,31 @@ def getquestion():
         return jsonify(js['data'])
     ques=js['data'][int(qno)]
     return jsonify(ques)
+
+@app.route('/takeexam', methods=['GET'])
+def examinit():
+    return render_template('examinit.html')
+
+@app.route('/caughtcheating', methods=['GET'])
+def caughtcheating():
+    return render_template('cheating.html')
+
+def genrandom():
+    i=0
+    code=""
+    while i<6:
+        choice=randint(0,2)
+        if choice==0:
+            code=code+chr(randint(65,90))
+        
+        if choice==1:
+            code=code+chr(randint(97,122))
+        
+        if choice==2:
+            code=code+chr(randint(48,57))
+        i=i+1
+
+    return code
 
 if __name__=='__main__':
     app.run(debug=True)

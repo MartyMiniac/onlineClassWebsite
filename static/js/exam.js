@@ -1,6 +1,5 @@
 
 //uncomment to block right click
-/*
 document.oncontextmenu = function(e){
     var evt = new Object({keyCode:93});
     stopEvent(e);
@@ -12,14 +11,11 @@ function stopEvent(event){
     if(event.stopPropagation != undefined)
      event.stopPropagation();
 }
-*/
 //uncomment to detect tab change
-/*
 $(window).focus(function() {
-    console.log('you left');
-    document.write('');
+    window.location.href = "/caughtcheating";
+    console.log('you left change');
 });
-*/
 $(document).ready(function(){
     $.get( "/testengine", function( data ) {
         $( "#form" ).html( data );
