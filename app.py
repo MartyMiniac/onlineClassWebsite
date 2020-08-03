@@ -129,6 +129,9 @@ def videoupload():
             'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
             'cache-control': "no-cache"
             }
+        f=open('static/json/lessons.json','w')
+        f.write('')
+        f.close()
 
         response = requests.request("POST", url, data=payload, headers=headers)
         return response.text
