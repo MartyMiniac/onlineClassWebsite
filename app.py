@@ -312,6 +312,13 @@ def submitans():
     }
     return jsonify(rt)
 
+@app.route('/getexamresultsjson', methods=['GET'])
+def getexamresults():
+    f=open('static/json/testsubmit.json')
+    js=json.load(f)
+    f.close()
+    return jsonify(js)
+
 def genrandom():
     i=0
     code=""
