@@ -322,6 +322,41 @@ def getexamresults():
     f.close()
     return jsonify(js)
 
+@app.route('/submitquestionsjson', methods=['POST'])
+def submitquestions():
+    jsp=request.get_json(force=True)
+    
+    url = "https://sfsonline-f942.restdb.io/rest/assetjson"
+
+    headers = {
+        'content-type': "application/json",
+        'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+        'cache-control': "no-cache"
+        }
+
+    response = requests.request("GET", url, headers=headers)
+    js=json.loads(response.text)
+    dbid=''
+    for s in js:
+        if s['filename']=='examquestions.json':
+            dbid=s['_id']
+            break
+    url = "https://sfsonline-f942.restdb.io/rest/assetjson/"+dbid
+
+    payload = "{\"json\":"+json.dumps(jsp,indent=4)+"}"
+    headers = {
+        'content-type': "application/json",
+        'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+        'cache-control': "no-cache"
+        }
+
+    response = requests.request("PUT", url, data=payload, headers=headers)
+    print(jsp)
+    f=open('static/json/examquestions.json', 'w')
+    f.write('')
+    f.close()
+    return jsonify(response.text)
+
 def genrandom():
     i=0
     code=""
