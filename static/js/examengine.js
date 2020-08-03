@@ -11,15 +11,23 @@ function questionselect(quesno){
     document.getElementById("questiontext").innerHTML=data['question'];
     var s="<option disabled selected>Select Your Answer</option>";
     for(var i=0; i<data['options'].length; i++) {
-        s=s+'<option value="'+i+'">'+data['options'][i]+'</option>';
-    }
+        if(answers[quesno]==i)
+        {
+            s=s+'<option selected value="'+i+'">'+data['options'][i]+'</option>';
+        }
+        else
+        {
+            s=s+'<option value="'+i+'">'+data['options'][i]+'</option>';
+        }
+    }    
+    s=s+'<option value="'+parseInt(-1)+'">Deselect Answer</option>'
     document.getElementById("answeroption").innerHTML=s;
     
     currentquestion=quesno;
     var s="Question "+(parseInt(currentquestion)+1)+" of "+totalquestions;
     document.getElementById("questionnoviewer").innerHTML=s;
 }
-$(document).ready(function(){
+setTimeout(function(){
     $.post( "/getquestions", JSON.stringify({"qno": "all"}))
         .done(function( data ) {
             questions=data.data;
@@ -32,14 +40,12 @@ $(document).ready(function(){
             document.getElementById("questionselectarea").innerHTML=s;
             totalquestions=data.data.length;
             totaltime=data.timelimit;
-            console.log(totaltime);
-            console.log(questions);
             currenttime=totaltime;
     });
     questionselect(0);
     var s="Question "+(parseInt(currentquestion)+1)+" of "+totalquestions;
     document.getElementById("questionnoviewer").innerHTML=s;
-});
+},5000);
 function previous(){
     if(currentquestion==0)
     {
@@ -54,7 +60,6 @@ function next(){
 
 function updateanswer(){
     window.answers[currentquestion]=parseInt(document.getElementById("answeroption").value);
-    console.log(answers);
 }
 
 
@@ -77,11 +82,9 @@ function myTimer() {
         }
         currenttime=parseInt(currenttime)-1;
         updatetimerstring(currenttime)
-        console.log(timerstring);
         if(currenttime==0){
             timeup=true;
             timerstring='Time Up';
-            console.log('Time Up');
             document.getElementById("timerviewer").innerHTML=timerstring;
             finishsubmit();
         }
@@ -91,14 +94,12 @@ function myTimer() {
 
 
 function finishsubmit() {
-    alert('Timeup');
     var submitval={
         "name": document.getElementById("infoname").innerHTML,
         "cl": document.getElementById("infoclass").innerHTML,
         "sec": document.getElementById("infosec").innerHTML,
         "ans":answers
     };
-    console.log(submitval);
     $.post( "/submitans", JSON.stringify(submitval))
     .done(function( data ) {
         document.write('');

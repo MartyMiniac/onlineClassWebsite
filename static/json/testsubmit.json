@@ -1,3 +1,13 @@
 {
-    "data":[]
+    "data": [
+        {
+            "name": "Rohan verma",
+            "cl": "12",
+            "sec": "A",
+            "ans": [
+                0,
+                2
+            ]
+        }
+    ]
 }

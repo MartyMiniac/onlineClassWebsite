@@ -14,14 +14,6 @@
             </h4>
         </div>
     </span>
-    <div class="ribbon" id="topribbon">
-        <ul>
-            <li><a href="/">Attendance</a>
-            </li>
-            <li><a href="/getlessons">Audio Lessons</a>
-            </li>
-        </ul>
-    </div>
     <div id="details">
         <p class="info">
             <strong>Instructions</strong>
@@ -34,9 +26,9 @@
         </p>
         <div style="padding: 5px; position: relative; width: 100%;">
             <p class="info" style="padding: 0;">You are {{ name.title() }} of class {{ cl }}{{sec}}</p>
-            <p hidden  id="infoname">Name   : {{ name }}</p>
-            <p hidden id="infoclass">Class  : {{ cl }}</p>
-            <p hidden id="infosec">Section : {{ sec }}</p>
+            <p hidden  id="infoname">{{ name }}</p>
+            <p hidden id="infoclass">{{ cl }}</p>
+            <p hidden id="infosec">{{ sec }}</p>
         </div>
     </div>
     <div class="inputform" id="form">
@@ -48,20 +40,6 @@
     <p class="info" style="margin: 0px; padding: 0px;">Webserver, Database, Webpage and Javascript Developed by Rohan Verma</p>
     </div>
 </div>
-<script>
-document.getElementById("topscroll").style.display="none";
-document.getElementById("details").style.display="none";
-document.getElementById("topribbon").style.display="none";
-document.getElementById("form").style.display="none";
-$('#topscroll').fadeIn(500);
-$('#topribbon').fadeIn(600);
-$('#details').delay(250).fadeIn(400);
-$('#form').delay(500).fadeIn(400);
-$('#homepage').on('click', function() {
-    window.location.href = "/";
-});
-
-</script>
 <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
 <script src="{{ url_for('static', filename='js/examengine.js') }}"></script>
 {% endblock %}

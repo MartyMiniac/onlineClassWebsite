@@ -292,6 +292,10 @@ def examinit():
 def caughtcheating():
     return render_template('cheating.html')
 
+@app.route('/examfinished', methods=['GET'])
+def examfinished():
+    return render_template('testsubmitted.html')
+
 @app.route('/submitans', methods=['POST'])
 def submitans():
     js=request.get_json(force=True)
@@ -304,7 +308,7 @@ def submitans():
     f.close()
     print(json.dumps(js, indent=4))
     rt={
-        'url':'/'
+        'url':'/examfinished'
     }
     return jsonify(rt)
 
