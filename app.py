@@ -357,22 +357,99 @@ def submitquestions():
     f.close()
     return jsonify(response.text)
 
-def genrandom():
-    i=0
-    code=""
-    while i<6:
-        choice=randint(0,2)
-        if choice==0:
-            code=code+chr(randint(65,90))
-        
-        if choice==1:
-            code=code+chr(randint(97,122))
-        
-        if choice==2:
-            code=code+chr(randint(48,57))
-        i=i+1
+@app.route('/guestview', methods=['GET'])
+def guestview():
+    try:
+        f=open('static/json/class12.json', 'r')
+        js12=json.load(f)
+        f.close()
+    
+        f=open('static/json/class10.json', 'r')
+        js10=json.load(f)
+        f.close()
 
-    return code
+        f=open('static/json/class10.json', 'r')
+        js11=json.load(f)
+        f.close()
+    except:
+        print('file not found creating files')
+        url = "https://sfsonline-f942.restdb.io/rest/filejson"
+
+        headers = {
+            'content-type': "application/json",
+            'x-apikey': "5d64e8dbc2fa8af2172050d1134e103d0da28",
+            'cache-control': "no-cache"
+            }
+        response = requests.request("GET", url, headers=headers)
+        js=json.loads(response.text)
+        for s in js:
+            print(s['class'])
+            f=open('static/json/'+s['class'], 'w')
+            f.write(json.dumps(s['json'], indent=4))
+            f.close()
+
+        f=open('static/json/class12.json', 'r')
+        js12=json.load(f)
+        f.close()
+        
+        f=open('static/json/class10.json', 'r')
+        js10=json.load(f)
+        f.close()
+
+        f=open('static/json/class10.json', 'r')
+        js11=json.load(f)
+        f.close()
+
+    arrf=[]
+    arr=[]
+    for s in js10['data']:
+        t={}
+        t['name']=s['name']
+        t['class']=s['class']
+        t['section']=s['section']
+        t['days present']=s['days present']
+        t['number of days present']=s['number of days present']
+        arr.append(t)
+    arr=sorted(arr, key=lambda i : i['name'], reverse=False)
+    arrf=arrf+arr
+    arr=[]
+    
+    for s in js12['data']:
+        t={}
+        t['name']=s['name']
+        t['class']=s['class']
+        t['section']=s['section']
+        t['days present']=s['days present']
+        t['number of days present']=s['number of days present']
+        arr.append(t)
+    arr=sorted(arr, key=lambda i : i['name'], reverse=False)
+    arrf=arrf+arr
+    arr=[]
+
+    for s in js11['data']:
+        t={}
+        t['name']=s['name']
+        t['class']=s['class']
+        t['section']=s['section']
+        t['days present']=s['days present']
+        t['number of days present']=s['number of days present']
+        arr.append(t)
+    arr=sorted(arr, key=lambda i : i['name'], reverse=False)
+    arrf=arrf+arr
+    arr=[]
+    arrs=[]
+    ch=' '
+    for s in arrf:
+        t=s
+        if s['name'][0]!=ch:
+            ch=s['name'][0]
+            t['change']=True
+            t['char']=ch
+        else:
+            t['change']=False
+        arrs.append(t)
+    
+    return render_template('guestview.html', arr=arrf)
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
