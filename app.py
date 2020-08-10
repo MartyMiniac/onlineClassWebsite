@@ -368,7 +368,7 @@ def guestview():
         js10=json.load(f)
         f.close()
 
-        f=open('static/json/class10.json', 'r')
+        f=open('static/json/class11.json', 'r')
         js11=json.load(f)
         f.close()
     except:
@@ -396,13 +396,25 @@ def guestview():
         js10=json.load(f)
         f.close()
 
-        f=open('static/json/class10.json', 'r')
+        f=open('static/json/class11.json', 'r')
         js11=json.load(f)
         f.close()
 
     arrf=[]
     arr=[]
     for s in js10['data']:
+        t={}
+        t['name']=s['name']
+        t['class']=s['class']
+        t['section']=s['section']
+        t['days present']=s['days present']
+        t['number of days present']=s['number of days present']
+        arr.append(t)
+    arr=sorted(arr, key=lambda i : i['name'], reverse=False)
+    arrf=arrf+arr
+    arr=[]
+    
+    for s in js11['data']:
         t={}
         t['name']=s['name']
         t['class']=s['class']
@@ -426,17 +438,6 @@ def guestview():
     arrf=arrf+arr
     arr=[]
 
-    for s in js11['data']:
-        t={}
-        t['name']=s['name']
-        t['class']=s['class']
-        t['section']=s['section']
-        t['days present']=s['days present']
-        t['number of days present']=s['number of days present']
-        arr.append(t)
-    arr=sorted(arr, key=lambda i : i['name'], reverse=False)
-    arrf=arrf+arr
-    arr=[]
     arrs=[]
     ch=' '
     for s in arrf:
