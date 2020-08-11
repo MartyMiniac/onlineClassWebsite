@@ -27,6 +27,11 @@ def getInfo(name, cl, sec):
             f=open('static/json/class12.json', 'r')
             js=json.load(f)
             f.close()
+
+        elif cl==11:
+            f=open('static/json/class11.json', 'r')
+            js=json.load(f)
+            f.close()
         
         elif cl==10:
             f=open('static/json/class10.json', 'r')
@@ -51,6 +56,11 @@ def getInfo(name, cl, sec):
 
         if cl==12:
             f=open('static/json/class12.json', 'r')
+            js=json.load(f)
+            f.close()
+
+        elif cl==11:
+            f=open('static/json/class11.json', 'r')
             js=json.load(f)
             f.close()
         
@@ -453,4 +463,4 @@ def guestview():
     return render_template('guestview.html', arr=arrf)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True)

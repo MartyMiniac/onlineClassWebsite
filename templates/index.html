@@ -39,6 +39,7 @@
             <select name="class" onchange="checkclass(), showsection()" required id="class">
                 <option disabled selected>Select Your Class</option>
                 <option value="12">Class 12th</option>
+                <option value="11">Class 11th</option>
                 <option value="10">Class 10th</option>
             </select>
             <br>
@@ -67,6 +68,9 @@ $('#details').delay(250).fadeIn(400);
 $('#form').delay(500).fadeIn(400);
 function checkclass(e) {
     if(document.getElementById("class").value == "12"){
+        document.getElementById("sections").innerHTML='<option disabled selected>Select Your Section</option><option value=\"A\">Section A</option><option value=\"B\">Section B</option>';
+    }
+    if(document.getElementById("class").value == "11"){
         document.getElementById("sections").innerHTML='<option disabled selected>Select Your Section</option><option value=\"A\">Section A</option><option value=\"B\">Section B</option>';
     }
     if(document.getElementById("class").value == "10"){
