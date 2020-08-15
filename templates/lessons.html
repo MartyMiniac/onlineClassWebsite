@@ -52,50 +52,48 @@
         top: 50%;
     }
 </style>
-<div class="wrapper">
-    <span id="homepage">
-        <div class="head" id="topscroll" hidden>
-            <h1>
-                Attendistat
-            </h1>
-            <h4>
-                Check your Online Classes Attendance Online
-            </h4>
-        </div>
-    </span>
-    <div class="ribbon" id="topribbon">
-        <ul>
-            <li><a href="/">Attendance</a>
-            </li>
-            <li><a href="/getlessons">Audio Lessons</a>
-            </li>
-            <li><a href="/takeexam">Online Exam</a>
-            </li>
-        </ul>
+<span id="homepage">
+    <div class="head" id="topscroll" hidden>
+        <h1>
+            Attendistat
+        </h1>
+        <h4>
+            Check your Online Classes Attendance Online
+        </h4>
     </div>
-    <div id="details">
-        <p class="info">
-            Lesson Recap
-            <br>
-            Revise your Lessons with real Lectures
-            <br>
-            Click on the Date the lesson of which you want Revise
-        </p>
-    </div>
-    <div class="inputform" id="form">
-        <table>
-            <tr>
-                <th>Date on Which Class was Taken</th>
-            </tr>
-            {% for s in js %}
-            <tr>
-                <td>
-                    <p onclick="on(['{{ s['title'] }}','{{ s['url'][:-1] }}'])" class="classlink">{{ s['title'] }}</p>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+</span>
+<div class="ribbon" id="topribbon">
+    <ul>
+        <li><a href="/">Attendance</a>
+        </li>
+        <li><a href="/getlessons">Audio Lessons</a>
+        </li>
+        <li><a href="/takeexam">Online Exam</a>
+        </li>
+    </ul>
+</div>
+<div id="details">
+    <p class="info">
+        Lesson Recap
+        <br>
+        Revise your Lessons with real Lectures
+        <br>
+        Click on the Date the lesson of which you want Revise
+    </p>
+</div>
+<div class="inputform" id="form">
+    <table>
+        <tr>
+            <th>Date on Which Class was Taken</th>
+        </tr>
+        {% for s in js %}
+        <tr>
+            <td>
+                <p onclick="on(['{{ s['title'] }}','{{ s['url'][:-1] }}'])" class="classlink">{{ s['title'] }}</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 <div id="overlay">
     <img src="{{ url_for('static', filename='assets/exit.png') }}" onclick="off()" class="exitbutton">
